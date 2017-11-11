@@ -10,6 +10,14 @@ import scrapy
 
 class FoxItem(scrapy.Item):
     # define the fields for your item here like:
-    name = scrapy.Field()
-    src = scrapy.Field()
-    school = scrapy.Field()
+    # name = scrapy.Field()
+    url = scrapy.Field()
+    # school = scrapy.Field()
+
+    price = scrapy.Field()
+    title = scrapy.Field()
+    site = scrapy.Field()
+    floor = scrapy.Field()
+    style = scrapy.Field()
+    share = scrapy.Field()
+    size = scrapy.Field()

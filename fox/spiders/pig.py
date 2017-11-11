@@ -31,8 +31,8 @@ class PigSpider(scrapy.spiders.Spider):
                     ab_src = 'http://39.106.51.169' + url[0]
                     file_name = url[-4:-1] + '.html'
                     file_path = os.path.join(os.path.abspath('.'), 'imgs', file_name)
-                    print(file_path)
-                    request.urlretrieve(ab_src,file_path)
+                    print('new',file_name)
+                    # request.urlretrieve(ab_src,file_path)
                 except Exception as e:
                     print(e)
             # 获取所有的url，继续访问，并在其中寻找相同的url

@@ -50,6 +50,6 @@ class PigSpider(scrapy.spiders.Spider):
         # 获取所有的url，继续访问，并在其中寻找相同的url
         all_urls = s.select('//a/@href').extract()
         # print(all_urls)
-        for i in range(2, 3):
+        for i in range(2, 51):
             url = 'http://www.ziroom.com/z/nl/z3.html?p=' + str(i)
             yield Request(url, callback=self.parse)

@@ -33,10 +33,10 @@ class ZiruPipeline(object):
     def _conditional_insert(self, item):
         uptown = item['site'].split()[0][3:].replace("]","")
         part = item['site'][1:3]
-        size = int(item["size"].replace('约','').replace('㎡',''))
+        size = float(item["size"].replace('约','').replace('㎡',''))
         self.cur.execute(
             """insert into house (part,uptown,title,site,price,url,size,style,floor,share) values (%s,%s,%s ,%s, %s,%s,%s, %s, %s,%s)""",
             (part,uptown,item["title"], item["site"], item["price"], item["url"], size, item["style"], item["floor"],
              item["share"]))
-        self.cur.close()
+        # self.cur.close()
         self.conn.commit()

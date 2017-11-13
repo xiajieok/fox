@@ -7,7 +7,6 @@
 import os,re
 from urllib import request
 import pymysql
-from twisted.enterprise import adbapi
 
 
 class FoxPipeline(object):

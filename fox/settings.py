@@ -66,8 +66,8 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    # 'fox.pipelines.FoxPipeline': 300,
-    'fox.pipelines.ZiruPipeline': 300,
+    'fox.pipelines.FoxPipeline': 300,
+    # 'fox.pipelines.ZiruPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

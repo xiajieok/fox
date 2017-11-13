@@ -24,7 +24,7 @@ class FoxPipeline(object):
 
 class ZiruPipeline(object):
     def __init__(self):
-        self.conn = pymysql.connect(host='localhost', user='root', passwd='youxia', db='ziru', charset='utf8')
+        self.conn = pymysql.connect(host='localhost', user='root', passwd='XXXX', db='ziru', charset='utf8')
         self.cur = self.conn.cursor()
 
     def process_item(self, item, spider):

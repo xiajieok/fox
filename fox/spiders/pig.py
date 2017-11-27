@@ -1,8 +1,9 @@
-import scrapy,os
+import scrapy,os,random
 from scrapy.selector import HtmlXPathSelector
 from urllib import request
 from scrapy.selector import Selector
 from scrapy.http import Request
+# from scrapy import log
 
 opener = request.build_opener()
 opener.addheaders = [('User-agent', 'Mozilla/5.0')]
@@ -13,7 +14,7 @@ class PigSpider(scrapy.spiders.Spider):
     '''
 
     start_urls = [
-        'http://39.106.51.169',
+        'http://www.mknight.cn',
     ]
 
     def parse(self,response):
@@ -30,12 +31,17 @@ class PigSpider(scrapy.spiders.Spider):
             if title and url:
 
                 try:
-                    ab_src = 'http://39.106.51.169' + url[0]
+                    ab_src = 'http://www.mknight.cn' + url[0]
                     # print(url)
-                    base_usr = 'http://39.106.51.169'
+                    base_usr = 'http://www.mknight.cn'
                     html_url = base_usr + url
-                    opener.open(html_url)
-                    # print(html_url)
+                    i = random.randrange(100)
+                    s = 0
+                    print(i)
+                    while s < i:
+                        opener.open(html_url)
+                        s += 1
+                        print(html_url)
                     # page = request.Request(html_url)
                     # print(page.headers)
                     # page.close()
@@ -53,8 +59,8 @@ class PigSpider(scrapy.spiders.Spider):
                 except Exception as e:
                     print(e)
 
-            for i in range(2,32):
-                url = "http://39.106.51.169/?page=" + str(i)
+            for i in range(1,3):
+                url = "http://www.mknight.cn/?page=" + str(i)
                 # print(url)
                 yield Request(url, callback=self.parse)
 

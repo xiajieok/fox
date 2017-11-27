@@ -41,7 +41,8 @@ class IPSpider(scrapy.spiders.Spider):
                 proxys.append(proxy_temp)
                 # url = "http://ip.chinaz.com/getip.aspx"
         #清空ip文件
-        os.remove(pool_file)
+        with open(pool_file,'w') as f:
+            f.truncate()
         #多线程验证IP可用
         threads = []
         for i in proxys:

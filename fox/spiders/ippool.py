@@ -5,14 +5,19 @@ from scrapy.http import Request
 import urllib
 import requests
 import threading
+import json
 
 url = "http://www.mknight.cn"
 file_path = os.path.join(os.path.abspath('.'), 'ip_pool.txt')
-pool_file = os.path.join(os.path.abspath('.'), 'ip.txt')
+pool_file = os.path.join(os.path.abspath('.'), 'ip.json')
 proxys = []
+
+ip_list = []
 
 
 class IPSpider(scrapy.spiders.Spider):
+    global ip_list
+
     name = "ippool"
     start_urls = [
         'http://www.xicidaili.com/wt/',
@@ -40,10 +45,10 @@ class IPSpider(scrapy.spiders.Spider):
                 proxy_temp = {"http": line.strip('\n')}
                 proxys.append(proxy_temp)
                 # url = "http://ip.chinaz.com/getip.aspx"
-        #清空ip文件
-        with open(pool_file,'w') as f:
+        # 清空ip文件
+        with open(pool_file, 'w') as f:
             f.truncate()
-        #多线程验证IP可用
+        # 多线程验证IP可用
         threads = []
         for i in proxys:
             thread = threading.Thread(target=self.check, args=(i,))
@@ -52,22 +57,18 @@ class IPSpider(scrapy.spiders.Spider):
         # 阻塞主进程，等待所有子线程结束
         for thread in threads:
             thread.join()
+        tmp_dict = {}
+        tmp_dict['server'] = ip_list
+        with open(pool_file, 'w+') as f:
+            json.dump(tmp_dict, f)
 
     def check(self, args):
+        tmp = {}
 
         try:
             res = requests.get(url, proxies=args, timeout=1).headers
-            # print(args,'OK !!!')
             ip = args['http']
-            proxy_support = urllib.request.ProxyHandler(args)
-            opener = urllib.request.build_opener(proxy_support)
-            opener.addheaders = [('User-Agent','Mozilla/5.0')]
-            html = opener.open(url,timeout= 1)
-            with open(pool_file, 'a+') as f:
-                f.write(ip + '\n')
-
-
+            tmp['addr'] = ip
+            ip_list.append(tmp)
         except Exception as e:
             pass
-            # print(args,'NO')
-            # print(e)

@@ -5,4 +5,4 @@ from scrapy.cmdline import execute
 # execute(['scrapy', 'crawl', 'duowan','--nolog'])
 # execute(['scrapy', 'crawl', 'duowan',])
 # execute(['scrapy', 'crawl', 'pig',])
-execute(['scrapy', 'crawl', 'ippool',])
+execute(['scrapy', 'crawl', 'ippool','--nolog'])

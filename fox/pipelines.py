@@ -8,22 +8,22 @@ import os,re
 from urllib import request
 import pymysql
 
-
-class FoxPipeline(object):
-    def process_item(self, item, spider):
-        print('zhi xing  piplines')
-        ab_src = 'http://www.xiaohuar.com' + item['src']
-        file_name = item['name']
-        file_path = os.path.join(os.path.abspath('.'), 'imgs', file_name)
-        print(file_name)
-
-        request.urlretrieve(ab_src, file_path)
-        return item
+#
+# class FoxPipeline(object):
+#     def process_item(self, item, spider):
+#         print('zhi xing  piplines')
+#         ab_src = 'http://www.xiaohuar.com' + item['src']
+#         file_name = item['name']
+#         file_path = os.path.join(os.path.abspath('.'), 'imgs', file_name)
+#         print(file_name)
+#
+#         request.urlretrieve(ab_src, file_path)
+#         return item
 
 
 class ZiruPipeline(object):
     def __init__(self):
-        self.conn = pymysql.connect(host='localhost', user='root', passwd='XXXX', db='ziru', charset='utf8')
+        self.conn = pymysql.connect(host='192.168.1.40', user='ziru', passwd='ziru', db='ziru', charset='utf8')
         self.cur = self.conn.cursor()
 
     def process_item(self, item, spider):

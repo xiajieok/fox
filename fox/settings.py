@@ -66,7 +66,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'fox.pipelines.FoxPipeline': 300,
+    # 'fox.pipelines.FoxPipeline': 300,
     # 'fox.pipelines.ZiruPipeline': 300,
 }
 
@@ -167,4 +167,6 @@ USER_AGENTS = [
     "Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10"
 
 ]
-
+DOWNLOAD_TIMEOUT = 15
+RETRY_ENABLED = False
+# LOG_LEVEL = 'INFO'

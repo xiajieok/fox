@@ -7,17 +7,22 @@
 
 import scrapy
 
-
-class FoxItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    url = scrapy.Field()
-    # school = scrapy.Field()
-
-    price = scrapy.Field()
+#
+# class FoxItem(scrapy.Item):
+#     # define the fields for your item here like:
+#     # name = scrapy.Field()
+#     url = scrapy.Field()
+#     # school = scrapy.Field()
+#
+#     price = scrapy.Field()
+#     title = scrapy.Field()
+#     site = scrapy.Field()
+#     floor = scrapy.Field()
+#     style = scrapy.Field()
+#     share = scrapy.Field()
+#     size = scrapy.Field()
+class ReadItem(scrapy.Item):
+    chapter_url = scrapy.Field()
+    lesson_url = scrapy.Field()
     title = scrapy.Field()
-    site = scrapy.Field()
-    floor = scrapy.Field()
-    style = scrapy.Field()
-    share = scrapy.Field()
-    size = scrapy.Field()
+    content = scrapy.Field()

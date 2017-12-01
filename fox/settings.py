@@ -52,7 +52,7 @@ COOKIES_ENABLED = False
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
+    # 'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
     'fox.middlewares.RandomUserAgent.RandomUserAgent': 100,
 
 }
@@ -68,6 +68,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     # 'fox.pipelines.FoxPipeline': 300,
     # 'fox.pipelines.ZiruPipeline': 300,
+    'fox.pipelines.ReadPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,7 +92,7 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = [404]
 # HTTPERROR_ALLOWED_CODES = [400]
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-DEPTH_LIMIT = 1
+DEPTH_LIMIT = 2
 REDIRECT_ENABLED = False
 
 

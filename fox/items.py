@@ -7,6 +7,7 @@
 
 import scrapy
 
+
 #
 # class FoxItem(scrapy.Item):
 #     # define the fields for your item here like:
@@ -22,7 +23,5 @@ import scrapy
 #     share = scrapy.Field()
 #     size = scrapy.Field()
 class ReadItem(scrapy.Item):
-    chapter_url = scrapy.Field()
-    lesson_url = scrapy.Field()
-    title = scrapy.Field()
     content = scrapy.Field()
+    url = scrapy.Field()

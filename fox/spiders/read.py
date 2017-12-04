@@ -1,11 +1,38 @@
-import scrapy
-import os
-import urllib
+import scrapy, os
 from scrapy.selector import Selector
 from scrapy.http import Request
-from fox.items import ReadItem
+from fox import items as ReadItem
+
+import pdfkit
+
+# pdf = os.path.join(os.path.abspath('.'), 'htmls')
+options = {
+    'page-size': 'Letter',
+    'margin-top': '0.75in',
+    'margin-right': '0.75in',
+    'margin-bottom': '0.75in',
+    'margin-left': '0.75in',
+    'encoding': "UTF-8",  # 支持中文
+    'cookie': [
+        ('cookie-name1', 'cookie-value1'),
+        ('cookie-name2', 'cookie-value2'),
+    ],
+    'no-outline': None
+}
+html_template = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        {content}
+        </body>
+        </html>
+        """
 
 base_url = 'http://python3-cookbook.readthedocs.io/zh_CN/latest/'
+all = os.path.join(os.path.abspath('.'), 'all.html')
 
 
 class ReadSpider(scrapy.spiders.Spider):
@@ -13,46 +40,76 @@ class ReadSpider(scrapy.spiders.Spider):
     start_urls = [
         'http://python3-cookbook.readthedocs.io/zh_CN/latest/',
     ]
-    allowed_domains = ['python3-cookbook.readthedocs.io']
 
     def parse(self, response):
-        item = ReadItem()
+        links = []
         s = Selector(response)
-        items = s.xpath('//div[@class="wy-menu wy-menu-vertical"]/ul/li')
-        for li in range(len(items)):
-            chapter_url = s.xpath('.//a/@href').extract()[li]
-            chapter_url = base_url + chapter_url
-            if "chapters" in chapter_url:
-                # print(chapter_url)
-                item['chapter_url'] = chapter_url
-                yield Request(item['chapter_url'], callback=self.get_lessons, meta={'item': item})
-
-    def get_lessons(self, response):
-        print('------------------获取 节------------------')
-        item = response.meta['item']
-        s = Selector(response)
-        items = s.xpath('//li[@class="toctree-l2"]')
-        # print(items)
-        for li in range(len(items)):
-            lesson_url = s.xpath('.//a/@href').extract()[li][3:]
-            if "c0" in lesson_url:
-                lesson_url = base_url + lesson_url
-                print('节 的URL', lesson_url)
-                item['lesson_url'] = lesson_url
-                yield Request(item['lesson_url'], callback=self.get_content, meta={'item': item})
+        items = s.xpath('//li[@class="toctree-l2"]/a')
+        for i in range(len(items)):
+            url = s.xpath('//li[@class="toctree-l2"]/a/@href').extract()[i]
+            if 'c01' in url or 'c01' in url:
+                c_url = base_url + url
+                links.append(c_url)
             else:
-                print('NO')
+                print('no', url)
+        for link in links:
+            print(link)
+            yield Request(link, callback=self.get_content)
+
 
     def get_content(self, response):
-        print('------------------获取 内容------------------')
-        item = response.meta['item']
+        print('#########################获取HTML#########################')
+        item = ReadItem.ReadItem()
+
+        url = response.url
+        print(response.url)
+        # file_name = url.split('/')[5][1:] + url.split('/')[6][1:3] + '.html'
+        # file_name = os.path.join(os.path.abspath('.'), 'htmls', file_name)
+        # print(file_name)
         content = response.xpath('//div[@class="section"]').extract()[0]
-        title = response.xpath('//div[@class="section"]/h1/text()').extract()[0]
-        # print('我是获取的内容', content.strip('\n'))
-        print('我是获取的内容', title)
-        try:
-            item['title'] = title
-            item['content'] = content
-        except Exception as e:
-            print(e)
-        return item
+        item['content'] = content
+        item['url'] = response.url
+        yield item
+
+
+
+
+        # html = html_template.format(content=content)
+        # with open(file_name, 'a+', encoding='utf-8') as f:
+        #     f.write(html)
+        # return self.save_pdf()
+
+
+    # def save_pdf(self):
+    #     print('#########################执行转化PDF文件#########################')
+        # filedir = os.path.join(os.path.abspath('.'), 'htmls')
+        # files = os.listdir(filedir)
+        # desc_file = os.path.join(os.path.abspath('.'), 'all.html')
+        # #
+        # for i in files:
+        #     # 遍历单个文件，读取行数
+        #     print(i)
+        #     cc = os.path.join(os.path.abspath('.'), 'htmls', i)
+        #     f = open(cc, 'r', encoding='utf-8')
+        #     file = f.read()
+        #     with open(desc_file, 'a+', encoding='utf-8') as new:
+        #         new.write(file)
+        #     f.close()
+        # options = {
+        #     'page-size': 'Letter',
+        #     'margin-top': '0.75in',
+        #     'margin-right': '0.75in',
+        #     'margin-bottom': '0.75in',
+        #     'margin-left': '0.75in',
+        #     'encoding': "UTF-8",
+        #     'custom-header': [
+        #         ('Accept-Encoding', 'gzip')
+        #     ],
+        #     'cookie': [
+        #         ('cookie-name1', 'cookie-value1'),
+        #         ('cookie-name2', 'cookie-value2'),
+        #     ],
+        #     'outline-depth': 10,
+        # }
+        #
+        # pdf = pdfkit.from_file('all.html', 'out.pdf', options=options)

@@ -1,0 +1,1740 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.1 解压序列赋值给多个变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>现在有一个包含 N 个元素的元组或者是序列，怎样将它里面的值解压后同时赋值给 N 个变量？</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>任何的序列（或者是可迭代对象）可以通过一个简单的赋值语句解压并赋值给多个变量。
+唯一的前提就是变量的数量必须跟序列元素的数量是一样的。</p>
+<p>代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span>
+<span class="go">5</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">'ACME'</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mf">91.1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span> <span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">date</span> <span class="o">=</span> <span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span>
+<span class="go">'ACME'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">date</span>
+<span class="go">(2012, 12, 21)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">mon</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span> <span class="o">=</span> <span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span>
+<span class="go">'ACME'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">year</span>
+<span class="go">2012</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mon</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">day</span>
+<span class="go">21</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>如果变量个数和序列元素的个数不匹配，会产生一个异常。</p>
+<p>代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; p = (4, 5)
+&gt;&gt;&gt; x, y, z = p
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: need more than 2 values to unpack
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>实际上，这种解压赋值可以用在任何可迭代对象上面，而不仅仅是列表或者元组。
+包括字符串，文件对象，迭代器和生成器。</p>
+<p>代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">'Hello'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">'H'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span>
+<span class="go">'e'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span>
+<span class="go">'o'</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>有时候，你可能只想解压一部分，丢弃其他的值。对于这种情况 Python 并没有提供特殊的语法。
+但是你可以使用任意变量名去占位，到时候丢掉这些变量就行了。</p>
+<p>代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">'ACME'</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mf">91.1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span> <span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shares</span>
+<span class="go">50</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">price</span>
+<span class="go">91.1</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>你必须保证你选用的那些占位变量名在其他地方没被使用到。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.2 解压可迭代对象赋值给多个变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>如果一个可迭代对象的元素个数超过变量个数时，会抛出一个 <code class="docutils literal"><span class="pre">ValueError</span></code> 。
+那么怎样才能从这个可迭代对象中解压出 N 个元素出来？</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>Python 的星号表达式可以用来解决这个问题。比如，你在学习一门课程，在学期末的时候，
+你想统计下家庭作业的平均成绩，但是排除掉第一个和最后一个分数。如果只有四个分数，你可能就直接去简单的手动赋值，
+但如果有 24 个呢？这时候星号表达式就派上用场了：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drop_first_last</span><span class="p">(</span><span class="n">grades</span><span class="p">):</span>
+    <span class="n">first</span><span class="p">,</span> <span class="o">*</span><span class="n">middle</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">grades</span>
+    <span class="k">return</span> <span class="n">avg</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>另外一种情况，假设你现在有一些用户的记录列表，每条记录包含一个名字、邮件，接着就是不确定数量的电话号码。
+你可以像下面这样分解这些记录：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">record</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Dave'</span><span class="p">,</span> <span class="s1">'dave@example.com'</span><span class="p">,</span> <span class="s1">'773-555-1212'</span><span class="p">,</span> <span class="s1">'847-555-1212'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="o">*</span><span class="n">phone_numbers</span> <span class="o">=</span> <span class="n">record</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span>
+<span class="go">'Dave'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">email</span>
+<span class="go">'dave@example.com'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phone_numbers</span>
+<span class="go">['773-555-1212', '847-555-1212']</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>值得注意的是上面解压出的 <code class="docutils literal"><span class="pre">phone_numbers</span></code> 变量永远都是列表类型，不管解压的电话号码数量是多少（包括 0 个）。
+所以，任何使用到 <code class="docutils literal"><span class="pre">phone_numbers</span></code> 变量的代码就不需要做多余的类型检查去确认它是否是列表类型了。</p>
+<p>星号表达式也能用在列表的开始部分。比如，你有一个公司前 8 个月销售数据的序列，
+但是你想看下最近一个月数据和前面 7 个月的平均值的对比。你可以这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">trailing_qtrs</span><span class="p">,</span> <span class="n">current_qtr</span> <span class="o">=</span> <span class="n">sales_record</span>
+<span class="n">trailing_avg</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">trailing_qtrs</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trailing_qtrs</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">avg_comparison</span><span class="p">(</span><span class="n">trailing_avg</span><span class="p">,</span> <span class="n">current_qtr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>下面是在 Python 解释器中执行的结果：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">*</span><span class="n">trailing</span><span class="p">,</span> <span class="n">current</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trailing</span>
+<span class="go">[10, 8, 7, 1, 9, 5, 10]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">current</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>扩展的迭代解压语法是专门为解压不确定个数或任意个数元素的可迭代对象而设计的。
+通常，这些可迭代对象的元素结构有确定的规则（比如第 1 个元素后面都是电话号码），
+星号表达式让开发人员可以很容易的利用这些规则来解压出元素来。
+而不是通过一些比较复杂的手段去获取这些关联的元素值。</p>
+<p>值得注意的是，星号表达式在迭代元素为可变长元组的序列时是很有用的。
+比如，下面是一个带有标签的元组序列：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">do_foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">do_bar</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">'foo'</span><span class="p">:</span>
+        <span class="n">do_foo</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">'bar'</span><span class="p">:</span>
+        <span class="n">do_bar</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>星号解压语法在字符串操作的时候也会很有用，比如字符串的分割。</p>
+<p>代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">line</span> <span class="o">=</span> <span class="s1">'nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uname</span><span class="p">,</span> <span class="o">*</span><span class="n">fields</span><span class="p">,</span> <span class="n">homedir</span><span class="p">,</span> <span class="n">sh</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">':'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uname</span>
+<span class="go">'nobody'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">homedir</span>
+<span class="go">'/var/empty'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span>
+<span class="go">'/usr/bin/false'</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>有时候，你想解压一些元素后丢弃它们，你不能简单就使用 <code class="docutils literal"><span class="pre">*</span></code> ，
+但是你可以使用一个普通的废弃名称，比如 <code class="docutils literal"><span class="pre">_</span></code> 或者 <code class="docutils literal"><span class="pre">ign</span></code> （ignore）。</p>
+<p>代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">record</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'ACME'</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mf">123.45</span><span class="p">,</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">2012</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span> <span class="o">=</span> <span class="n">record</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span>
+<span class="go">'ACME'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">year</span>
+<span class="go">2012</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>在很多函数式语言中，星号解压语法跟列表处理有许多相似之处。比如，如果你有一个列表，
+你可以很容易的将它分割成前后两部分：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head</span><span class="p">,</span> <span class="o">*</span><span class="n">tail</span> <span class="o">=</span> <span class="n">items</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail</span>
+<span class="go">[10, 7, 4, 5, 9]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>如果你够聪明的话，还能用这种分割语法去巧妙的实现递归算法。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">head</span><span class="p">,</span> <span class="o">*</span><span class="n">tail</span> <span class="o">=</span> <span class="n">items</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">head</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span> <span class="k">if</span> <span class="n">tail</span> <span class="k">else</span> <span class="n">head</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sum</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+<span class="go">36</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>然后，由于语言层面的限制，递归并不是 Python 擅长的。
+因此，最后那个递归演示仅仅是个好奇的探索罢了，对这个不要太认真了。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="n">
+<h1>1.3 保留最后 N 个元素<a class="headerlink" href="#n" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>问题<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>在迭代操作或者其他操作的时候，怎样只保留最后有限几个元素的历史记录？</p>
+</div>
+<div class="section" id="id2">
+<h2>解决方案<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>保留有限历史记录正是 <code class="docutils literal"><span class="pre">collections.deque</span></code> 大显身手的时候。比如，下面的代码在多行上面做简单的文本匹配，
+并返回匹配所在行的最后N行：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+
+<span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">previous_lines</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">history</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">line</span><span class="p">,</span> <span class="n">previous_lines</span>
+        <span class="n">previous_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+<span class="c1"># Example use on a file</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">'../../cookbook/somefile.txt'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span><span class="p">,</span> <span class="n">prevlines</span> <span class="ow">in</span> <span class="n">search</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">'python'</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">pline</span> <span class="ow">in</span> <span class="n">prevlines</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">pline</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>讨论<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>我们在写查询元素的代码时，通常会使用包含 <code class="docutils literal"><span class="pre">yield</span></code> 表达式的生成器函数，也就是我们上面示例代码中的那样。
+这样可以将搜索过程代码和使用搜索结果代码解耦。如果你还不清楚什么是生成器，请参看 4.3 节。</p>
+<p>使用 <code class="docutils literal"><span class="pre">deque(maxlen=N)</span></code> 构造函数会新建一个固定大小的队列。当新的元素加入并且这个队列已满的时候，
+最老的元素会自动被移除掉。</p>
+<p>代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span>
+<span class="go">deque([1, 2, 3], maxlen=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span>
+<span class="go">deque([2, 3, 4], maxlen=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span>
+<span class="go">deque([3, 4, 5], maxlen=3)</span>
+</pre></div>
+</div>
+<p>尽管你也可以手动在一个列表上实现这一的操作（比如增加、删除等等）。但是这里的队列方案会更加优雅并且运行得更快些。</p>
+<p>更一般的， <code class="docutils literal"><span class="pre">deque</span></code> 类可以被用在任何你只需要一个简单队列数据结构的场合。
+如果你不设置最大队列大小，那么就会得到一个无限大小队列，你可以在队列的两端执行添加和弹出元素的操作。</p>
+<p>代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span>
+<span class="go">deque([1, 2, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span>
+<span class="go">deque([4, 1, 2, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span>
+<span class="go">deque([4, 1, 2])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>在队列两端插入或删除元素时间复杂度都是 <code class="docutils literal"><span class="pre">O(1)</span></code> ，而在列表的开头插入或删除元素的时间复杂度为 <code class="docutils literal"><span class="pre">O(N)</span></code> 。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="n">
+<h1>1.4 查找最大或最小的 N 个元素<a class="headerlink" href="#n" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>问题<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>怎样从一个集合中获得最大或者最小的 N 个元素列表？</p>
+</div>
+<div class="section" id="id2">
+<h2>解决方案<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>heapq 模块有两个函数：<code class="docutils literal"><span class="pre">nlargest()</span></code> 和 <code class="docutils literal"><span class="pre">nsmallest()</span></code> 可以完美解决这个问题。</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">heapq</span>
+<span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">heapq</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">nums</span><span class="p">))</span> <span class="c1"># Prints [42, 37, 23]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">heapq</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">nums</span><span class="p">))</span> <span class="c1"># Prints [-4, 1, 2]</span>
+</pre></div>
+</div>
+<p>两个函数都能接受一个关键字参数，用于更复杂的数据结构中：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">portfolio</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'IBM'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">:</span> <span class="mf">91.1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'AAPL'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">:</span> <span class="mf">543.22</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'FB'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">:</span> <span class="mf">21.09</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'HPQ'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">:</span> <span class="mf">31.75</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'YHOO'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">:</span> <span class="mf">16.35</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'ACME'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">:</span> <span class="mf">115.65</span><span class="p">}</span>
+<span class="p">]</span>
+<span class="n">cheap</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">portfolio</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="s1">'price'</span><span class="p">])</span>
+<span class="n">expensive</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">portfolio</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="s1">'price'</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>译者注：上面代码在对每个元素进行对比的时候，会以 <code class="docutils literal"><span class="pre">price</span></code> 的值进行比较。</p>
+</div>
+<div class="section" id="id3">
+<h2>讨论<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>如果你想在一个集合中查找最小或最大的 N 个元素，并且 N 小于集合元素数量，那么这些函数提供了很好的性能。
+因为在底层实现里面，首先会先将集合数据进行堆排序后放入一个列表中：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heapq</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heap</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heap</span>
+<span class="go">[-4, 2, 1, 23, 7, 2, 18, 23, 42, 37, 8]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>堆数据结构最重要的特征是 <code class="docutils literal"><span class="pre">heap[0]</span></code> 永远是最小的元素。并且剩余的元素可以很容易的通过调用 <code class="docutils literal"><span class="pre">heapq.heappop()</span></code> 方法得到，
+该方法会先将第一个元素弹出来，然后用下一个最小的元素来取代被弹出元素（这种操作时间复杂度仅仅是 O(log N)，N 是堆大小）。
+比如，如果想要查找最小的 3 个元素，你可以这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<span class="go">-4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>当要查找的元素个数相对比较小的时候，函数 <code class="docutils literal"><span class="pre">nlargest()</span></code> 和 <code class="docutils literal"><span class="pre">nsmallest()</span></code> 是很合适的。
+如果你仅仅想查找唯一的最小或最大（N=1）的元素的话，那么使用 <code class="docutils literal"><span class="pre">min()</span></code> 和 <code class="docutils literal"><span class="pre">max()</span></code> 函数会更快些。
+类似的，如果 N 的大小和集合大小接近的时候，通常先排序这个集合然后再使用切片操作会更快点
+（ <code class="docutils literal"><span class="pre">sorted(items)[:N]</span></code> 或者是 <code class="docutils literal"><span class="pre">sorted(items)[-N:]</span></code> ）。
+需要在正确场合使用函数 <code class="docutils literal"><span class="pre">nlargest()</span></code> 和 <code class="docutils literal"><span class="pre">nsmallest()</span></code> 才能发挥它们的优势
+（如果 N 快接近集合大小了，那么使用排序操作会更好些）。</p>
+<p>尽管你没有必要一定使用这里的方法，但是堆数据结构的实现是一个很有趣并且值得你深入学习的东西。
+基本上只要是数据结构和算法书籍里面都会有提及到。
+<code class="docutils literal"><span class="pre">heapq</span></code> 模块的官方文档里面也详细的介绍了堆数据结构底层的实现细节。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.5 实现一个优先级队列<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>怎样实现一个按优先级排序的队列？ 并且在这个队列上面每次 pop 操作总是返回优先级最高的那个元素</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>下面的类利用 <code class="docutils literal"><span class="pre">heapq</span></code> 模块实现了一个简单的优先级队列：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">heapq</span>
+
+<span class="k">class</span> <span class="nc">PriorityQueue</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">priority</span><span class="p">):</span>
+        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">priority</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">,</span> <span class="n">item</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>下面是它的使用方式：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Item</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="s1">'Item({!r})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">PriorityQueue</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">'spam'</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">'grok'</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="go">Item('bar')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="go">Item('spam')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="go">Item('foo')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="go">Item('grok')</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>仔细观察可以发现，第一个 <code class="docutils literal"><span class="pre">pop()</span></code> 操作返回优先级最高的元素。
+另外注意到如果两个有着相同优先级的元素（ <code class="docutils literal"><span class="pre">foo</span></code> 和 <code class="docutils literal"><span class="pre">grok</span></code> ），pop 操作按照它们被插入到队列的顺序返回的。</p>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>这一小节我们主要关注 <code class="docutils literal"><span class="pre">heapq</span></code> 模块的使用。
+函数 <code class="docutils literal"><span class="pre">heapq.heappush()</span></code> 和 <code class="docutils literal"><span class="pre">heapq.heappop()</span></code> 分别在队列 <code class="docutils literal"><span class="pre">_queue</span></code> 上插入和删除第一个元素，
+并且队列 <code class="docutils literal"><span class="pre">_queue</span></code> 保证第一个元素拥有最高优先级（ 1.4 节已经讨论过这个问题）。
+<code class="docutils literal"><span class="pre">heappop()</span></code> 函数总是返回”最小的”的元素，这就是保证队列pop操作返回正确元素的关键。
+另外，由于 push 和 pop 操作时间复杂度为 O(log N)，其中 N 是堆的大小，因此就算是 N 很大的时候它们运行速度也依旧很快。</p>
+<p>在上面代码中，队列包含了一个 <code class="docutils literal"><span class="pre">(-priority,</span> <span class="pre">index,</span> <span class="pre">item)</span></code> 的元组。
+优先级为负数的目的是使得元素按照优先级从高到低排序。
+这个跟普通的按优先级从低到高排序的堆排序恰巧相反。</p>
+<p><code class="docutils literal"><span class="pre">index</span></code> 变量的作用是保证同等优先级元素的正确排序。
+通过保存一个不断增加的 <code class="docutils literal"><span class="pre">index</span></code> 下标变量，可以确保元素按照它们插入的顺序排序。
+而且， <code class="docutils literal"><span class="pre">index</span></code> 变量也在相同优先级元素比较的时候起到重要作用。</p>
+<p>为了阐明这些，先假定 <code class="docutils literal"><span class="pre">Item</span></code> 实例是不支持排序的：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; a = Item('foo')
+&gt;&gt;&gt; b = Item('bar')
+&gt;&gt;&gt; a &lt; b
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: unorderable types: Item() &lt; Item()
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>如果你使用元组 <code class="docutils literal"><span class="pre">(priority,</span> <span class="pre">item)</span></code> ，只要两个元素的优先级不同就能比较。
+但是如果两个元素优先级一样的话，那么比较操作就会跟之前一样出错：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; a = (1, Item('foo'))
+&gt;&gt;&gt; b = (5, Item('bar'))
+&gt;&gt;&gt; a &lt; b
+True
+&gt;&gt;&gt; c = (1, Item('grok'))
+&gt;&gt;&gt; a &lt; c
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: unorderable types: Item() &lt; Item()
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>通过引入另外的 <code class="docutils literal"><span class="pre">index</span></code> 变量组成三元组 <code class="docutils literal"><span class="pre">(priority,</span> <span class="pre">index,</span> <span class="pre">item)</span></code> ，就能很好的避免上面的错误，
+因为不可能有两个元素有相同的 <code class="docutils literal"><span class="pre">index</span></code> 值。Python 在做元组比较时候，如果前面的比较已经可以确定结果了，
+后面的比较操作就不会发生了：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Item</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Item</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Item</span><span class="p">(</span><span class="s1">'grok'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">c</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>如果你想在多个线程中使用同一个队列，那么你需要增加适当的锁和信号量机制。
+可以查看 12.3 小节的例子演示是怎样做的。</p>
+<p><code class="docutils literal"><span class="pre">heapq</span></code> 模块的官方文档有更详细的例子程序以及对于堆理论及其实现的详细说明。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.6 字典中的键映射多个值<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>怎样实现一个键对应多个值的字典（也叫 <code class="docutils literal"><span class="pre">multidict</span></code>）？</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>一个字典就是一个键对应一个单值的映射。如果你想要一个键映射多个值，那么你就需要将这多个值放到另外的容器中，
+比如列表或者集合里面。比如，你可以像下面这样构造这样的字典：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'a'</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s1">'b'</span> <span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">e</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'a'</span> <span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="s1">'b'</span> <span class="p">:</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>选择使用列表还是集合取决于你的实际需求。如果你想保持元素的插入顺序就应该使用列表，
+如果想去掉重复元素就使用集合（并且不关心元素的顺序问题）。</p>
+<p>你可以很方便的使用 <code class="docutils literal"><span class="pre">collections</span></code> 模块中的 <code class="docutils literal"><span class="pre">defaultdict</span></code> 来构造这样的字典。
+<code class="docutils literal"><span class="pre">defaultdict</span></code> 的一个特征是它会自动初始化每个 <code class="docutils literal"><span class="pre">key</span></code> 刚开始对应的值，所以你只需要关注添加元素操作了。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'a'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'a'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'b'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'a'</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'a'</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'b'</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>需要注意的是， <code class="docutils literal"><span class="pre">defaultdict</span></code> 会自动为将要访问的键（就算目前字典中并不存在这样的键）创建映射实体。
+如果你并不需要这样的特性，你可以在一个普通的字典上使用 <code class="docutils literal"><span class="pre">setdefault()</span></code> 方法来代替。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># A regular dictionary</span>
+<span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>但是很多程序员觉得 <code class="docutils literal"><span class="pre">setdefault()</span></code> 用起来有点别扭。因为每次调用都得创建一个新的初始值的实例（例子程序中的空列表 <code class="docutils literal"><span class="pre">[]</span></code> ）。</p>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>一般来讲，创建一个多值映射字典是很简单的。但是，如果你选择自己实现的话，那么对于值的初始化可能会有点麻烦，
+你可能会像下面这样来实现：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>如果使用 <code class="docutils literal"><span class="pre">defaultdict</span></code> 的话代码就更加简洁了：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+    <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这一小节所讨论的问题跟数据处理中的记录归类问题有大的关联。可以参考 1.15 小节的例子。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.7 字典排序<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你想创建一个字典，并且在迭代或序列化这个字典的时候能够控制元素的顺序。</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>为了能控制一个字典中元素的顺序，你可以使用 <code class="docutils literal"><span class="pre">collections</span></code> 模块中的 <code class="docutils literal"><span class="pre">OrderedDict</span></code> 类。
+在迭代操作的时候它会保持元素被插入时的顺序，示例如下：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'bar'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'spam'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">'grok'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="c1"># Outputs "foo 1", "bar 2", "spam 3", "grok 4"</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>当你想要构建一个将来需要序列化或编码成其他格式的映射的时候， <code class="docutils literal"><span class="pre">OrderedDict</span></code> 是非常有用的。
+比如，你想精确控制以 JSON 编码后字段的顺序，你可以先使用 <code class="docutils literal"><span class="pre">OrderedDict</span></code> 来构建这样的数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">'{"foo": 1, "bar": 2, "spam": 3, "grok": 4}'</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">OrderedDict</span></code> 内部维护着一个根据键插入顺序排序的双向链表。每次当一个新的元素插入进来的时候，
+它会被放到链表的尾部。对于一个已经存在的键的重复赋值不会改变键的顺序。</p>
+<p>需要注意的是，一个 <code class="docutils literal"><span class="pre">OrderedDict</span></code> 的大小是一个普通字典的两倍，因为它内部维护着另外一个链表。
+所以如果你要构建一个需要大量 <code class="docutils literal"><span class="pre">OrderedDict</span></code> 实例的数据结构的时候（比如读取 100,000 行 CSV 数据到一个 <code class="docutils literal"><span class="pre">OrderedDict</span></code> 列表中去），
+那么你就得仔细权衡一下是否使用 <code class="docutils literal"><span class="pre">OrderedDict</span></code> 带来的好处要大过额外内存消耗的影响。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.8 字典的运算<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>怎样在数据字典中执行一些计算操作（比如求最小值、最大值、排序等等）？</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>考虑下面的股票名和价格映射字典：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'ACME'</span><span class="p">:</span> <span class="mf">45.23</span><span class="p">,</span>
+    <span class="s1">'AAPL'</span><span class="p">:</span> <span class="mf">612.78</span><span class="p">,</span>
+    <span class="s1">'IBM'</span><span class="p">:</span> <span class="mf">205.55</span><span class="p">,</span>
+    <span class="s1">'HPQ'</span><span class="p">:</span> <span class="mf">37.20</span><span class="p">,</span>
+    <span class="s1">'FB'</span><span class="p">:</span> <span class="mf">10.75</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>为了对字典值执行计算操作，通常需要使用 <code class="docutils literal"><span class="pre">zip()</span></code> 函数先将键和值反转过来。
+比如，下面是查找最小和最大股票价格和股票值的代码：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">min_price</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">prices</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="c1"># min_price is (10.75, 'FB')</span>
+<span class="n">max_price</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">prices</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="c1"># max_price is (612.78, 'AAPL')</span>
+</pre></div>
+</div>
+<p>类似的，可以使用 <code class="docutils literal"><span class="pre">zip()</span></code> 和 <code class="docutils literal"><span class="pre">sorted()</span></code> 函数来排列字典数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">prices_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">prices</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="c1"># prices_sorted is [(10.75, 'FB'), (37.2, 'HPQ'),</span>
+<span class="c1">#                   (45.23, 'ACME'), (205.55, 'IBM'),</span>
+<span class="c1">#                   (612.78, 'AAPL')]</span>
+</pre></div>
+</div>
+<p>执行这些计算的时候，需要注意的是 <code class="docutils literal"><span class="pre">zip()</span></code> 函数创建的是一个只能访问一次的迭代器。
+比如，下面的代码就会产生错误：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">prices_and_names</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">prices</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">prices_and_names</span><span class="p">))</span> <span class="c1"># OK</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">prices_and_names</span><span class="p">))</span> <span class="c1"># ValueError: max() arg is an empty sequence</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>如果你在一个字典上执行普通的数学运算，你会发现它们仅仅作用于键，而不是值。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">min</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span> <span class="c1"># Returns 'AAPL'</span>
+<span class="nb">max</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span> <span class="c1"># Returns 'IBM'</span>
+</pre></div>
+</div>
+<p>这个结果并不是你想要的，因为你想要在字典的值集合上执行这些计算。
+或许你会尝试着使用字典的 <code class="docutils literal"><span class="pre">values()</span></code> 方法来解决这个问题：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">min</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="c1"># Returns 10.75</span>
+<span class="nb">max</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="c1"># Returns 612.78</span>
+</pre></div>
+</div>
+<p>不幸的是，通常这个结果同样也不是你想要的。
+你可能还想要知道对应的键的信息（比如那种股票价格是最低的？）。</p>
+<p>你可以在 <code class="docutils literal"><span class="pre">min()</span></code> 和 <code class="docutils literal"><span class="pre">max()</span></code> 函数中提供 <code class="docutils literal"><span class="pre">key</span></code> 函数参数来获取最小值或最大值对应的键的信息。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">min</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">prices</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="c1"># Returns 'FB'</span>
+<span class="nb">max</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">prices</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="c1"># Returns 'AAPL'</span>
+</pre></div>
+</div>
+<p>但是，如果还想要得到最小值，你又得执行一次查找操作。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">min_value</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">prices</span><span class="p">[</span><span class="n">k</span><span class="p">])]</span>
+</pre></div>
+</div>
+<p>前面的 <code class="docutils literal"><span class="pre">zip()</span></code> 函数方案通过将字典”反转”为 (值，键) 元组序列来解决了上述问题。
+当比较两个元组的时候，值会先进行比较，然后才是键。
+这样的话你就能通过一条简单的语句就能很轻松的实现在字典上的求最值和排序操作了。</p>
+<p>需要注意的是在计算操作中使用到了 (值，键) 对。当多个实体拥有相同的值的时候，键会决定返回结果。
+比如，在执行 <code class="docutils literal"><span class="pre">min()</span></code> 和 <code class="docutils literal"><span class="pre">max()</span></code> 操作的时候，如果恰巧最小或最大值有重复的，那么拥有最小或最大键的实体会返回：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prices</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'AAA'</span> <span class="p">:</span> <span class="mf">45.23</span><span class="p">,</span> <span class="s1">'ZZZ'</span><span class="p">:</span> <span class="mf">45.23</span> <span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">min</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">prices</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">(45.23, 'AAA')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">max</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">prices</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">(45.23, 'ZZZ')</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.9 查找两字典的相同点<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>怎样在两个字典中寻寻找相同点（比如相同的键、相同的值等等）？</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>考虑下面两个字典：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'x'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'y'</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">'z'</span> <span class="p">:</span> <span class="mi">3</span>
+<span class="p">}</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'w'</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">'x'</span> <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="s1">'y'</span> <span class="p">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>为了寻找两个字典的相同点，可以简单的在两字典的 <code class="docutils literal"><span class="pre">keys()</span></code> 或者 <code class="docutils literal"><span class="pre">items()</span></code> 方法返回结果上执行集合操作。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Find keys in common</span>
+<span class="n">a</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="c1"># { 'x', 'y' }</span>
+<span class="c1"># Find keys in a that are not in b</span>
+<span class="n">a</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="c1"># { 'z' }</span>
+<span class="c1"># Find (key,value) pairs in common</span>
+<span class="n">a</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="c1"># { ('y', 2) }</span>
+</pre></div>
+</div>
+<p>这些操作也可以用于修改或者过滤字典元素。
+比如，假如你想以现有字典构造一个排除几个指定键的新字典。
+下面利用字典推导来实现这样的需求：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Make a new dictionary with certain keys removed</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">a</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">-</span> <span class="p">{</span><span class="s1">'z'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">}}</span>
+<span class="c1"># c is {'x': 1, 'y': 2}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>一个字典就是一个键集合与值集合的映射关系。
+字典的 <code class="docutils literal"><span class="pre">keys()</span></code> 方法返回一个展现键集合的键视图对象。
+键视图的一个很少被了解的特性就是它们也支持集合操作，比如集合并、交、差运算。
+所以，如果你想对集合的键执行一些普通的集合操作，可以直接使用键视图对象而不用先将它们转换成一个 set。</p>
+<p>字典的 <code class="docutils literal"><span class="pre">items()</span></code> 方法返回一个包含 (键，值) 对的元素视图对象。
+这个对象同样也支持集合操作，并且可以被用来查找两个字典有哪些相同的键值对。</p>
+<p>尽管字典的 <code class="docutils literal"><span class="pre">values()</span></code> 方法也是类似，但是它并不支持这里介绍的集合操作。
+某种程度上是因为值视图不能保证所有的值互不相同，这样会导致某些集合操作会出现问题。
+不过，如果你硬要在值上面执行这些集合操作的话，你可以先将值集合转换成 set，然后再执行集合运算就行了。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.10 删除序列相同元素并保持顺序<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>怎样在一个序列上面保持元素顺序的同时消除重复的值？</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>如果序列上的值都是 <code class="docutils literal"><span class="pre">hashable</span></code> 类型，那么可以很简单的利用集合或者生成器来解决这个问题。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dedupe</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">item</span>
+            <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>下面是使用上述函数的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">dedupe</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="go">[1, 5, 2, 9, 10]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>这个方法仅仅在序列中元素为 <code class="docutils literal"><span class="pre">hashable</span></code> 的时候才管用。
+如果你想消除元素不可哈希（比如 <code class="docutils literal"><span class="pre">dict</span></code> 类型）的序列中重复元素的话，你需要将上述代码稍微改变一下，就像这样：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dedupe</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">item</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">key</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">item</span>
+            <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这里的key参数指定了一个函数，将序列元素转换成 <code class="docutils literal"><span class="pre">hashable</span></code> 类型。下面是它的用法示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span><span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span><span class="mi">4</span><span class="p">}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">dedupe</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">'x'</span><span class="p">],</span><span class="n">d</span><span class="p">[</span><span class="s1">'y'</span><span class="p">])))</span>
+<span class="go">[{'x': 1, 'y': 2}, {'x': 1, 'y': 3}, {'x': 2, 'y': 4}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">dedupe</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]))</span>
+<span class="go">[{'x': 1, 'y': 2}, {'x': 2, 'y': 4}]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>如果你想基于单个字段、属性或者某个更大的数据结构来消除重复元素，第二种方案同样可以胜任。</p>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>如果你仅仅就是想消除重复元素，通常可以简单的构造一个集合。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">[1, 5, 2, 1, 9, 1, 5, 10]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">{1, 2, 10, 5, 9}</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>然而，这种方法不能维护元素的顺序，生成的结果中的元素位置被打乱。而上面的方法可以避免这种情况。</p>
+<p>在本节中我们使用了生成器函数让我们的函数更加通用，不仅仅是局限于列表处理。
+比如，如果如果你想读取一个文件，消除重复行，你可以很容易像这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">somefile</span><span class="p">,</span><span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dedupe</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>上述key函数参数模仿了 <code class="docutils literal"><span class="pre">sorted()</span></code> , <code class="docutils literal"><span class="pre">min()</span></code> 和 <code class="docutils literal"><span class="pre">max()</span></code> 等内置函数的相似功能。
+可以参考 1.8 和 1.13 小节了解更多。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.11 命名切片<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你的程序已经出现一大堆已无法直视的硬编码切片下标，然后你想清理下代码。</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>假定你有一段代码要从一个记录字符串中几个固定位置提取出特定的数据字段（比如文件或类似格式）：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">######    0123456789012345678901234567890123456789012345678901234567890'</span>
+<span class="n">record</span> <span class="o">=</span> <span class="s1">'....................100 .......513.25 ..........'</span>
+<span class="n">cost</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="mi">23</span><span class="p">])</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">31</span><span class="p">:</span><span class="mi">37</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>与其那样写，为什么不想这样命名切片呢：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">SHARES</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="n">PRICE</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">37</span><span class="p">)</span>
+<span class="n">cost</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">SHARES</span><span class="p">])</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">PRICE</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>第二种版本中，你避免了大量无法理解的硬编码下标，使得你的代码更加清晰可读了。</p>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>一般来讲，代码中如果出现大量的硬编码下标值会使得可读性和可维护性大大降低。
+比如，如果你回过来看看一年前你写的代码，你会摸着脑袋想那时候自己到底想干嘛啊。
+这里的解决方案是一个很简单的方法让你更加清晰的表达代码到底要做什么。</p>
+<p>内置的 <code class="docutils literal"><span class="pre">slice()</span></code> 函数创建了一个切片对象，可以被用在任何切片允许使用的地方。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="go">[2, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">items</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="go">[2, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">items</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">items</span>
+<span class="go">[0, 1, 10, 11, 4, 5, 6]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">items</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">items</span>
+<span class="go">[0, 1, 4, 5, 6]</span>
+</pre></div>
+</div>
+<p>如果你有一个切片对象a，你可以分别调用它的 <code class="docutils literal"><span class="pre">a.start</span></code> , <code class="docutils literal"><span class="pre">a.stop</span></code> , <code class="docutils literal"><span class="pre">a.step</span></code> 属性来获取更多的信息。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">start</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">stop</span>
+<span class="go">50</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">step</span>
+<span class="go">2</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>另外，你还能通过调用切片的 <code class="docutils literal"><span class="pre">indices(size)</span></code> 方法将它映射到一个确定大小的序列上，
+这个方法返回一个三元组 <code class="docutils literal"><span class="pre">(start,</span> <span class="pre">stop,</span> <span class="pre">step)</span></code> ，所有值都会被合适的缩小以满足边界限制，
+从而使用的时候避免出现 <code class="docutils literal"><span class="pre">IndexError</span></code> 异常。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">'HelloWorld'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="go">(5, 10, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="gp">...</span>
+<span class="go">W</span>
+<span class="go">r</span>
+<span class="go">d</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.12 序列中出现次数最多的元素<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>怎样找出一个序列中出现次数最多的元素呢？</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">collections.Counter</span></code> 类就是专门为这类问题而设计的，
+它甚至有一个有用的 <code class="docutils literal"><span class="pre">most_common()</span></code> 方法直接给了你答案。</p>
+<p>为了演示，先假设你有一个单词列表并且想找出哪个单词出现频率最高。你可以这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'look'</span><span class="p">,</span> <span class="s1">'into'</span><span class="p">,</span> <span class="s1">'my'</span><span class="p">,</span> <span class="s1">'eyes'</span><span class="p">,</span> <span class="s1">'look'</span><span class="p">,</span> <span class="s1">'into'</span><span class="p">,</span> <span class="s1">'my'</span><span class="p">,</span> <span class="s1">'eyes'</span><span class="p">,</span>
+    <span class="s1">'the'</span><span class="p">,</span> <span class="s1">'eyes'</span><span class="p">,</span> <span class="s1">'the'</span><span class="p">,</span> <span class="s1">'eyes'</span><span class="p">,</span> <span class="s1">'the'</span><span class="p">,</span> <span class="s1">'eyes'</span><span class="p">,</span> <span class="s1">'not'</span><span class="p">,</span> <span class="s1">'around'</span><span class="p">,</span> <span class="s1">'the'</span><span class="p">,</span>
+    <span class="s1">'eyes'</span><span class="p">,</span> <span class="s2">"don't"</span><span class="p">,</span> <span class="s1">'look'</span><span class="p">,</span> <span class="s1">'around'</span><span class="p">,</span> <span class="s1">'the'</span><span class="p">,</span> <span class="s1">'eyes'</span><span class="p">,</span> <span class="s1">'look'</span><span class="p">,</span> <span class="s1">'into'</span><span class="p">,</span>
+    <span class="s1">'my'</span><span class="p">,</span> <span class="s1">'eyes'</span><span class="p">,</span> <span class="s2">"you're"</span><span class="p">,</span> <span class="s1">'under'</span>
+<span class="p">]</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">word_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="c1"># 出现频率最高的3个单词</span>
+<span class="n">top_three</span> <span class="o">=</span> <span class="n">word_counts</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">top_three</span><span class="p">)</span>
+<span class="c1"># Outputs [('eyes', 8), ('the', 5), ('look', 4)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>作为输入， <code class="docutils literal"><span class="pre">Counter</span></code> 对象可以接受任意的由可哈希（<code class="docutils literal"><span class="pre">hashable</span></code>）元素构成的序列对象。
+在底层实现上，一个 <code class="docutils literal"><span class="pre">Counter</span></code> 对象就是一个字典，将元素映射到它出现的次数上。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">word_counts</span><span class="p">[</span><span class="s1">'not'</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">word_counts</span><span class="p">[</span><span class="s1">'eyes'</span><span class="p">]</span>
+<span class="go">8</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>如果你想手动增加计数，可以简单的用加法：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">morewords</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'why'</span><span class="p">,</span><span class="s1">'are'</span><span class="p">,</span><span class="s1">'you'</span><span class="p">,</span><span class="s1">'not'</span><span class="p">,</span><span class="s1">'looking'</span><span class="p">,</span><span class="s1">'in'</span><span class="p">,</span><span class="s1">'my'</span><span class="p">,</span><span class="s1">'eyes'</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">morewords</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">word_counts</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">word_counts</span><span class="p">[</span><span class="s1">'eyes'</span><span class="p">]</span>
+<span class="go">9</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>或者你可以使用 <code class="docutils literal"><span class="pre">update()</span></code> 方法：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">word_counts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">morewords</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">Counter</span></code> 实例一个鲜为人知的特性是它们可以很容易的跟数学运算操作相结合。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">morewords</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">Counter({'eyes': 8, 'the': 5, 'look': 4, 'into': 3, 'my': 3, 'around': 2,</span>
+<span class="go">"you're": 1, "don't": 1, 'under': 1, 'not': 1})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span>
+<span class="go">Counter({'eyes': 1, 'looking': 1, 'are': 1, 'in': 1, 'not': 1, 'you': 1,</span>
+<span class="go">'my': 1, 'why': 1})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Combine counts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span>
+<span class="go">Counter({'eyes': 9, 'the': 5, 'look': 4, 'my': 4, 'into': 3, 'not': 2,</span>
+<span class="go">'around': 2, "you're": 1, "don't": 1, 'in': 1, 'why': 1,</span>
+<span class="go">'looking': 1, 'are': 1, 'under': 1, 'you': 1})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Subtract counts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>
+<span class="go">Counter({'eyes': 7, 'the': 5, 'look': 4, 'into': 3, 'my': 2, 'around': 2,</span>
+<span class="go">"you're": 1, "don't": 1, 'under': 1})</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>毫无疑问， <code class="docutils literal"><span class="pre">Counter</span></code> 对象在几乎所有需要制表或者计数数据的场合是非常有用的工具。
+在解决这类问题的时候你应该优先选择它，而不是手动的利用字典去实现。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.13 通过某个关键字排序一个字典列表<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你有一个字典列表，你想根据某个或某几个字典字段来排序这个列表。</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>通过使用 <code class="docutils literal"><span class="pre">operator</span></code> 模块的 <code class="docutils literal"><span class="pre">itemgetter</span></code> 函数，可以非常容易的排序这样的数据结构。
+假设你从数据库中检索出来网站会员信息列表，并且以下列的数据结构返回：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'Brian'</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Jones'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1003</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'David'</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Beazley'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1002</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Cleese'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1001</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'Big'</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Jones'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1004</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>根据任意的字典字段来排序输入结果行是很容易实现的，代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="n">rows_by_fname</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="s1">'fname'</span><span class="p">))</span>
+<span class="n">rows_by_uid</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="s1">'uid'</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rows_by_fname</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rows_by_uid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>代码的输出如下：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'Big'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1004</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Jones'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'Brian'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1003</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Jones'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'David'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1002</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Beazley'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1001</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Cleese'</span><span class="p">}]</span>
+<span class="p">[{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1001</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Cleese'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'David'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1002</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Beazley'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'Brian'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1003</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Jones'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'Big'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1004</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Jones'</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">itemgetter()</span></code> 函数也支持多个 keys，比如下面的代码</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">rows_by_lfname</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="s1">'lname'</span><span class="p">,</span><span class="s1">'fname'</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rows_by_lfname</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>会产生如下的输出：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'David'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1002</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Beazley'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1001</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Cleese'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'Big'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1004</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Jones'</span><span class="p">},</span>
+<span class="p">{</span><span class="s1">'fname'</span><span class="p">:</span> <span class="s1">'Brian'</span><span class="p">,</span> <span class="s1">'uid'</span><span class="p">:</span> <span class="mi">1003</span><span class="p">,</span> <span class="s1">'lname'</span><span class="p">:</span> <span class="s1">'Jones'</span><span class="p">}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>在上面例子中， <code class="docutils literal"><span class="pre">rows</span></code> 被传递给接受一个关键字参数的 <code class="docutils literal"><span class="pre">sorted()</span></code> 内置函数。
+这个参数是 <code class="docutils literal"><span class="pre">callable</span></code> 类型，并且从 <code class="docutils literal"><span class="pre">rows</span></code> 中接受一个单一元素，然后返回被用来排序的值。
+<code class="docutils literal"><span class="pre">itemgetter()</span></code> 函数就是负责创建这个 <code class="docutils literal"><span class="pre">callable</span></code> 对象的。</p>
+<p><code class="docutils literal"><span class="pre">operator.itemgetter()</span></code> 函数有一个被 <code class="docutils literal"><span class="pre">rows</span></code> 中的记录用来查找值的索引参数。可以是一个字典键名称，
+一个整形值或者任何能够传入一个对象的 <code class="docutils literal"><span class="pre">__getitem__()</span></code> 方法的值。
+如果你传入多个索引参数给 <code class="docutils literal"><span class="pre">itemgetter()</span></code> ，它生成的 <code class="docutils literal"><span class="pre">callable</span></code> 对象会返回一个包含所有元素值的元组，
+并且 <code class="docutils literal"><span class="pre">sorted()</span></code> 函数会根据这个元组中元素顺序去排序。
+但你想要同时在几个字段上面进行排序（比如通过姓和名来排序，也就是例子中的那样）的时候这种方法是很有用的。</p>
+<p><code class="docutils literal"><span class="pre">itemgetter()</span></code> 有时候也可以用 <code class="docutils literal"><span class="pre">lambda</span></code> 表达式代替，比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">rows_by_fname</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">'fname'</span><span class="p">])</span>
+<span class="n">rows_by_lfname</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">'lname'</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="s1">'fname'</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>这种方案也不错。但是，使用 <code class="docutils literal"><span class="pre">itemgetter()</span></code> 方式会运行的稍微快点。因此，如果你对性能要求比较高的话就使用 <code class="docutils literal"><span class="pre">itemgetter()</span></code> 方式。</p>
+<p>最后，不要忘了这节中展示的技术也同样适用于 <code class="docutils literal"><span class="pre">min()</span></code> 和 <code class="docutils literal"><span class="pre">max()</span></code> 等函数。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">min</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="s1">'uid'</span><span class="p">))</span>
+<span class="go">{'fname': 'John', 'lname': 'Cleese', 'uid': 1001}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">max</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="s1">'uid'</span><span class="p">))</span>
+<span class="go">{'fname': 'Big', 'lname': 'Jones', 'uid': 1004}</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.14 排序不支持原生比较的对象<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你想排序类型相同的对象，但是他们不支持原生的比较操作。</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>内置的 <code class="docutils literal"><span class="pre">sorted()</span></code> 函数有一个关键字参数 <code class="docutils literal"><span class="pre">key</span></code> ，可以传入一个 <code class="docutils literal"><span class="pre">callable</span></code> 对象给它，
+这个 <code class="docutils literal"><span class="pre">callable</span></code> 对象对每个传入的对象返回一个值，这个值会被 <code class="docutils literal"><span class="pre">sorted</span></code> 用来排序这些对象。
+比如，如果你在应用程序里面有一个 <code class="docutils literal"><span class="pre">User</span></code> 实例序列，并且你希望通过他们的 <code class="docutils literal"><span class="pre">user_id</span></code> 属性进行排序，
+你可以提供一个以 <code class="docutils literal"><span class="pre">User</span></code> 实例作为输入并输出对应 <code class="docutils literal"><span class="pre">user_id</span></code> 值的 <code class="docutils literal"><span class="pre">callable</span></code> 对象。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">user_id</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">'User({})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">sort_notcompare</span><span class="p">():</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="p">[</span><span class="n">User</span><span class="p">(</span><span class="mi">23</span><span class="p">),</span> <span class="n">User</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">User</span><span class="p">(</span><span class="mi">99</span><span class="p">)]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">users</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="n">u</span><span class="o">.</span><span class="n">user_id</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>另外一种方式是使用 <code class="docutils literal"><span class="pre">operator.attrgetter()</span></code> 来代替 lambda 函数：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">attrgetter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">'user_id'</span><span class="p">))</span>
+<span class="go">[User(3), User(23), User(99)]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>选择使用 lambda 函数或者是 <code class="docutils literal"><span class="pre">attrgetter()</span></code> 可能取决于个人喜好。
+但是， <code class="docutils literal"><span class="pre">attrgetter()</span></code> 函数通常会运行的快点，并且还能同时允许多个字段进行比较。
+这个跟 <code class="docutils literal"><span class="pre">operator.itemgetter()</span></code> 函数作用于字典类型很类似（参考1.13小节）。
+例如，如果 <code class="docutils literal"><span class="pre">User</span></code> 实例还有一个 <code class="docutils literal"><span class="pre">first_name</span></code> 和 <code class="docutils literal"><span class="pre">last_name</span></code> 属性，那么可以向下面这样排序：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">by_name</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">'last_name'</span><span class="p">,</span> <span class="s1">'first_name'</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>同样需要注意的是，这一小节用到的技术同样适用于像 <code class="docutils literal"><span class="pre">min()</span></code> 和 <code class="docutils literal"><span class="pre">max()</span></code> 之类的函数。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">min</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">'user_id'</span><span class="p">))</span>
+<span class="go">User(3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">max</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">'user_id'</span><span class="p">))</span>
+<span class="go">User(99)</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.15 通过某个字段将记录分组<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你有一个字典或者实例的序列，然后你想根据某个特定的字段比如 <code class="docutils literal"><span class="pre">date</span></code> 来分组迭代访问。</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">itertools.groupby()</span></code> 函数对于这样的数据分组操作非常实用。
+为了演示，假设你已经有了下列的字典列表：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">'address'</span><span class="p">:</span> <span class="s1">'5412 N CLARK'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/01/2012'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'address'</span><span class="p">:</span> <span class="s1">'5148 N CLARK'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/04/2012'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'address'</span><span class="p">:</span> <span class="s1">'5800 E 58TH'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/02/2012'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'address'</span><span class="p">:</span> <span class="s1">'2122 N CLARK'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/03/2012'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'address'</span><span class="p">:</span> <span class="s1">'5645 N RAVENSWOOD'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/02/2012'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'address'</span><span class="p">:</span> <span class="s1">'1060 W ADDISON'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/02/2012'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'address'</span><span class="p">:</span> <span class="s1">'4801 N BROADWAY'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/01/2012'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'address'</span><span class="p">:</span> <span class="s1">'1039 W GRANVILLE'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/04/2012'</span><span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>现在假设你想在按 date 分组后的数据块上进行迭代。为了这样做，你首先需要按照指定的字段(这里就是 <code class="docutils literal"><span class="pre">date</span></code> )排序，
+然后调用 <code class="docutils literal"><span class="pre">itertools.groupby()</span></code> 函数：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
+
+<span class="c1"># Sort by the desired field first</span>
+<span class="n">rows</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="s1">'date'</span><span class="p">))</span>
+<span class="c1"># Iterate in groups</span>
+<span class="k">for</span> <span class="n">date</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="s1">'date'</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>运行结果：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="mo">07</span><span class="o">/</span><span class="mo">01</span><span class="o">/</span><span class="mi">2012</span>
+  <span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/01/2012'</span><span class="p">,</span> <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'5412 N CLARK'</span><span class="p">}</span>
+  <span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/01/2012'</span><span class="p">,</span> <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'4801 N BROADWAY'</span><span class="p">}</span>
+<span class="mo">07</span><span class="o">/</span><span class="mo">02</span><span class="o">/</span><span class="mi">2012</span>
+  <span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/02/2012'</span><span class="p">,</span> <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'5800 E 58TH'</span><span class="p">}</span>
+  <span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/02/2012'</span><span class="p">,</span> <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'5645 N RAVENSWOOD'</span><span class="p">}</span>
+  <span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/02/2012'</span><span class="p">,</span> <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'1060 W ADDISON'</span><span class="p">}</span>
+<span class="mo">07</span><span class="o">/</span><span class="mo">03</span><span class="o">/</span><span class="mi">2012</span>
+  <span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/03/2012'</span><span class="p">,</span> <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'2122 N CLARK'</span><span class="p">}</span>
+<span class="mo">07</span><span class="o">/</span><span class="mo">04</span><span class="o">/</span><span class="mi">2012</span>
+  <span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/04/2012'</span><span class="p">,</span> <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'5148 N CLARK'</span><span class="p">}</span>
+  <span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'07/04/2012'</span><span class="p">,</span> <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'1039 W GRANVILLE'</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">groupby()</span></code> 函数扫描整个序列并且查找连续相同值（或者根据指定 key 函数返回值相同）的元素序列。
+在每次迭代的时候，它会返回一个值和一个迭代器对象，
+这个迭代器对象可以生成元素值全部等于上面那个值的组中所有对象。</p>
+<p>一个非常重要的准备步骤是要根据指定的字段将数据排序。
+因为 <code class="docutils literal"><span class="pre">groupby()</span></code> 仅仅检查连续的元素，如果事先并没有排序完成的话，分组函数将得不到想要的结果。</p>
+<p>如果你仅仅只是想根据 <code class="docutils literal"><span class="pre">date</span></code> 字段将数据分组到一个大的数据结构中去，并且允许随机访问，
+那么你最好使用 <code class="docutils literal"><span class="pre">defaultdict()</span></code> 来构建一个多值字典，关于多值字典已经在 1.6 小节有过详细的介绍。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="n">rows_by_date</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+    <span class="n">rows_by_date</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这样的话你可以很轻松的就能对每个指定日期访问对应的记录：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows_by_date</span><span class="p">[</span><span class="s1">'07/01/2012'</span><span class="p">]:</span>
+<span class="gp">... </span><span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">{'date': '07/01/2012', 'address': '5412 N CLARK'}</span>
+<span class="go">{'date': '07/01/2012', 'address': '4801 N BROADWAY'}</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>在上面这个例子中，我们没有必要先将记录排序。因此，如果对内存占用不是很关心，
+这种方式会比先排序然后再通过 <code class="docutils literal"><span class="pre">groupby()</span></code> 函数迭代的方式运行得快一些。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.16 过滤序列元素<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你有一个数据序列，想利用一些规则从中提取出需要的值或者是缩短序列</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>最简单的过滤序列元素的方法就是使用列表推导。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mylist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">mylist</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="go">[1, 4, 10, 2, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">mylist</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="go">[-5, -7, -1]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>使用列表推导的一个潜在缺陷就是如果输入非常大的时候会产生一个非常大的结果集，占用大量内存。
+如果你对内存比较敏感，那么你可以使用生成器表达式迭代产生过滤的元素。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">mylist</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos</span>
+<span class="go">&lt;generator object &lt;genexpr&gt; at 0x1006a0eb0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pos</span><span class="p">:</span>
+<span class="gp">... </span><span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">1</span>
+<span class="go">4</span>
+<span class="go">10</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>有时候，过滤规则比较复杂，不能简单的在列表推导或者生成器表达式中表达出来。
+比如，假设过滤的时候需要处理一些异常或者其他复杂情况。这时候你可以将过滤代码放到一个函数中，
+然后使用内建的 <code class="docutils literal"><span class="pre">filter()</span></code> 函数。示例如下：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'2'</span><span class="p">,</span> <span class="s1">'-3'</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">,</span> <span class="s1">'4'</span><span class="p">,</span> <span class="s1">'N/A'</span><span class="p">,</span> <span class="s1">'5'</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">is_int</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+<span class="n">ivals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">is_int</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ivals</span><span class="p">)</span>
+<span class="c1"># Outputs ['1', '2', '-3', '4', '5']</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">filter()</span></code> 函数创建了一个迭代器，因此如果你想得到一个列表的话，就得像示例那样使用 <code class="docutils literal"><span class="pre">list()</span></code> 去转换。</p>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>列表推导和生成器表达式通常情况下是过滤数据最简单的方式。
+其实它们还能在过滤的时候转换数据。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mylist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">mylist</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="go">[1.0, 2.0, 3.1622776601683795, 1.4142135623730951, 1.7320508075688772]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>过滤操作的一个变种就是将不符合条件的值用新的值代替，而不是丢弃它们。
+比如，在一列数据中你可能不仅想找到正数，而且还想将不是正数的数替换成指定的数。
+通过将过滤条件放到条件表达式中去，可以很容易的解决这个问题，就像这样：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clip_neg</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">mylist</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clip_neg</span>
+<span class="go">[1, 4, 0, 10, 0, 2, 3, 0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clip_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">mylist</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clip_pos</span>
+<span class="go">[0, 0, -5, 0, -7, 0, 0, -1]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>另外一个值得关注的过滤工具就是 <code class="docutils literal"><span class="pre">itertools.compress()</span></code> ，
+它以一个 <code class="docutils literal"><span class="pre">iterable</span></code> 对象和一个相对应的 <code class="docutils literal"><span class="pre">Boolean</span></code> 选择器序列作为输入参数。
+然后输出 <code class="docutils literal"><span class="pre">iterable</span></code> 对象中对应选择器为 <code class="docutils literal"><span class="pre">True</span></code> 的元素。
+当你需要用另外一个相关联的序列来过滤某个序列的时候，这个函数是非常有用的。
+比如，假如现在你有下面两列数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">addresses</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'5412 N CLARK'</span><span class="p">,</span>
+    <span class="s1">'5148 N CLARK'</span><span class="p">,</span>
+    <span class="s1">'5800 E 58TH'</span><span class="p">,</span>
+    <span class="s1">'2122 N CLARK'</span><span class="p">,</span>
+    <span class="s1">'5645 N RAVENSWOOD'</span><span class="p">,</span>
+    <span class="s1">'1060 W ADDISON'</span><span class="p">,</span>
+    <span class="s1">'4801 N BROADWAY'</span><span class="p">,</span>
+    <span class="s1">'1039 W GRANVILLE'</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>现在你想将那些对应 <code class="docutils literal"><span class="pre">count</span></code> 值大于5的地址全部输出，那么你可以这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">compress</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">more5</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">more5</span>
+<span class="go">[False, False, True, False, False, True, True, False]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">compress</span><span class="p">(</span><span class="n">addresses</span><span class="p">,</span> <span class="n">more5</span><span class="p">))</span>
+<span class="go">['5800 E 58TH', '1060 W ADDISON', '4801 N BROADWAY']</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>这里的关键点在于先创建一个 <code class="docutils literal"><span class="pre">Boolean</span></code> 序列，指示哪些元素符合条件。
+然后 <code class="docutils literal"><span class="pre">compress()</span></code> 函数根据这个序列去选择输出对应位置为 <code class="docutils literal"><span class="pre">True</span></code> 的元素。</p>
+<p>和 <code class="docutils literal"><span class="pre">filter()</span></code> 函数类似， <code class="docutils literal"><span class="pre">compress()</span></code> 也是返回的一个迭代器。因此，如果你需要得到一个列表，
+那么你需要使用 <code class="docutils literal"><span class="pre">list()</span></code> 来将结果转换为列表类型。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.17 从字典中提取子集<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你想构造一个字典，它是另外一个字典的子集。</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>最简单的方式是使用字典推导。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'ACME'</span><span class="p">:</span> <span class="mf">45.23</span><span class="p">,</span>
+    <span class="s1">'AAPL'</span><span class="p">:</span> <span class="mf">612.78</span><span class="p">,</span>
+    <span class="s1">'IBM'</span><span class="p">:</span> <span class="mf">205.55</span><span class="p">,</span>
+    <span class="s1">'HPQ'</span><span class="p">:</span> <span class="mf">37.20</span><span class="p">,</span>
+    <span class="s1">'FB'</span><span class="p">:</span> <span class="mf">10.75</span>
+<span class="p">}</span>
+<span class="c1"># Make a dictionary of all prices over 200</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">prices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">}</span>
+<span class="c1"># Make a dictionary of tech stocks</span>
+<span class="n">tech_names</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'AAPL'</span><span class="p">,</span> <span class="s1">'IBM'</span><span class="p">,</span> <span class="s1">'HPQ'</span><span class="p">,</span> <span class="s1">'MSFT'</span><span class="p">}</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">prices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">tech_names</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>大多数情况下字典推导能做到的，通过创建一个元组序列然后把它传给 <code class="docutils literal"><span class="pre">dict()</span></code> 函数也能实现。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">prices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>但是，字典推导方式表意更清晰，并且实际上也会运行的更快些
+（在这个例子中，实际测试几乎比 <code class="docutils literal"><span class="pre">dcit()</span></code> 函数方式快整整一倍）。</p>
+<p>有时候完成同一件事会有多种方式。比如，第二个例子程序也可以像这样重写：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Make a dictionary of tech stocks</span>
+<span class="n">tech_names</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'AAPL'</span><span class="p">,</span> <span class="s1">'IBM'</span><span class="p">,</span> <span class="s1">'HPQ'</span><span class="p">,</span> <span class="s1">'MSFT'</span> <span class="p">}</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span><span class="n">prices</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">prices</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">tech_names</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>但是，运行时间测试结果显示这种方案大概比第一种方案慢 1.6 倍。
+如果对程序运行性能要求比较高的话，需要花点时间去做计时测试。
+关于更多计时和性能测试，可以参考 14.13 小节。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.18 映射名称到序列元素<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你有一段通过下标访问列表或者元组中元素的代码，但是这样有时候会使得你的代码难以阅读，
+于是你想通过名称来访问元素。</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">collections.namedtuple()</span></code> 函数通过使用一个普通的元组对象来帮你解决这个问题。
+这个函数实际上是一个返回 Python 中标准元组类型子类的一个工厂方法。
+你需要传递一个类型名和你需要的字段给它，然后它就会返回一个类，你可以初始化这个类，为你定义的字段传递值等。
+代码示例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Subscriber</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'Subscriber'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'addr'</span><span class="p">,</span> <span class="s1">'joined'</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sub</span> <span class="o">=</span> <span class="n">Subscriber</span><span class="p">(</span><span class="s1">'jonesy@example.com'</span><span class="p">,</span> <span class="s1">'2012-10-19'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sub</span>
+<span class="go">Subscriber(addr='jonesy@example.com', joined='2012-10-19')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sub</span><span class="o">.</span><span class="n">addr</span>
+<span class="go">'jonesy@example.com'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sub</span><span class="o">.</span><span class="n">joined</span>
+<span class="go">'2012-10-19'</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>尽管 <code class="docutils literal"><span class="pre">namedtuple</span></code> 的实例看起来像一个普通的类实例，但是它跟元组类型是可交换的，支持所有的普通元组操作，比如索引和解压。
+比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">addr</span><span class="p">,</span> <span class="n">joined</span> <span class="o">=</span> <span class="n">sub</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">addr</span>
+<span class="go">'jonesy@example.com'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">joined</span>
+<span class="go">'2012-10-19'</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>命名元组的一个主要用途是将你的代码从下标操作中解脱出来。
+因此，如果你从数据库调用中返回了一个很大的元组列表，通过下标去操作其中的元素，
+当你在表中添加了新的列的时候你的代码可能就会出错了。但是如果你使用了命名元组，那么就不会有这样的顾虑。</p>
+<p>为了说明清楚，下面是使用普通元组的代码：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_cost</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="n">rec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">rec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">total</span>
+</pre></div>
+</div>
+<p>下标操作通常会让代码表意不清晰，并且非常依赖记录的结构。
+下面是使用命名元组的版本：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">Stock</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'Stock'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">compute_cost</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">Stock</span><span class="p">(</span><span class="o">*</span><span class="n">rec</span><span class="p">)</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="n">s</span><span class="o">.</span><span class="n">shares</span> <span class="o">*</span> <span class="n">s</span><span class="o">.</span><span class="n">price</span>
+    <span class="k">return</span> <span class="n">total</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>命名元组另一个用途就是作为字典的替代，因为字典存储需要更多的内存空间。
+如果你需要构建一个非常大的包含字典的数据结构，那么使用命名元组会更加高效。
+但是需要注意的是，不像字典那样，一个命名元组是不可更改的。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; s = Stock('ACME', 100, 123.45)
+&gt;&gt;&gt; s
+Stock(name='ACME', shares=100, price=123.45)
+&gt;&gt;&gt; s.shares = 75
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AttributeError: can't set attribute
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>如果你真的需要改变属性的值，那么可以使用命名元组实例的 <code class="docutils literal"><span class="pre">_replace()</span></code> 方法，
+它会创建一个全新的命名元组并将对应的字段用新的值取代。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="n">shares</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span>
+<span class="go">Stock(name='ACME', shares=75, price=123.45)</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">_replace()</span></code> 方法还有一个很有用的特性就是当你的命名元组拥有可选或者缺失字段时候，
+它是一个非常方便的填充数据的方法。
+你可以先创建一个包含缺省值的原型元组，然后使用 <code class="docutils literal"><span class="pre">_replace()</span></code> 方法创建新的值被更新过的实例。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">Stock</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'Stock'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">])</span>
+
+<span class="c1"># Create a prototype instance</span>
+<span class="n">stock_prototype</span> <span class="o">=</span> <span class="n">Stock</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+<span class="c1"># Function to convert a dictionary to a Stock</span>
+<span class="k">def</span> <span class="nf">dict_to_stock</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">stock_prototype</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="o">**</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>下面是它的使用方法：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'ACME'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">:</span> <span class="mf">123.45</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_to_stock</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">Stock(name='ACME', shares=100, price=123.45, date=None, time=None)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'ACME'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">:</span> <span class="mf">123.45</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">:</span> <span class="s1">'12/17/2012'</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_to_stock</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="go">Stock(name='ACME', shares=100, price=123.45, date='12/17/2012', time=None)</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>最后要说的是，如果你的目标是定义一个需要更新很多实例属性的高效数据结构，那么命名元组并不是你的最佳选择。
+这时候你应该考虑定义一个包含 <code class="docutils literal"><span class="pre">__slots__</span></code> 方法的类（参考8.4小节）。</p>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.19 转换并同时计算数据<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你需要在数据序列上执行聚集函数（比如 <code class="docutils literal"><span class="pre">sum()</span></code> , <code class="docutils literal"><span class="pre">min()</span></code> , <code class="docutils literal"><span class="pre">max()</span></code> ），
+但是首先你需要先转换或者过滤数据</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>一个非常优雅的方式去结合数据计算与转换就是使用一个生成器表达式参数。
+比如，如果你想计算平方和，可以像下面这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>下面是更多的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Determine if any .py files exist in a directory</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">'dirname'</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.py'</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'There be python!'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Sorry, no python.'</span><span class="p">)</span>
+<span class="c1"># Output a tuple as CSV</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'ACME'</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mf">123.45</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">','</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">s</span><span class="p">))</span>
+<span class="c1"># Data reduction across fields of a data structure</span>
+<span class="n">portfolio</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span><span class="s1">'GOOG'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span><span class="s1">'YHOO'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">75</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span><span class="s1">'AOL'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span><span class="s1">'SCOX'</span><span class="p">,</span> <span class="s1">'shares'</span><span class="p">:</span> <span class="mi">65</span><span class="p">}</span>
+<span class="p">]</span>
+<span class="n">min_shares</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">'shares'</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">portfolio</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>上面的示例向你演示了当生成器表达式作为一个单独参数传递给函数时候的巧妙语法（你并不需要多加一个括号）。
+比如，下面这些语句是等效的：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">))</span> <span class="c1"># 显示的传递一个生成器表达式对象</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">)</span> <span class="c1"># 更加优雅的实现方式，省略了括号</span>
+</pre></div>
+</div>
+<p>使用一个生成器表达式作为参数会比先创建一个临时列表更加高效和优雅。
+比如，如果你不使用生成器表达式的话，你可能会考虑使用下面的实现方式：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>这种方式同样可以达到想要的效果，但是它会多一个步骤，先创建一个额外的列表。
+对于小型列表可能没什么关系，但是如果元素数量非常大的时候，
+它会创建一个巨大的仅仅被使用一次就被丢弃的临时数据结构。而生成器方案会以迭代的方式转换数据，因此更省内存。</p>
+<p>在使用一些聚集函数比如 <code class="docutils literal"><span class="pre">min()</span></code> 和 <code class="docutils literal"><span class="pre">max()</span></code> 的时候你可能更加倾向于使用生成器版本，
+它们接受的一个 key 关键字参数或许对你很有帮助。
+比如，在上面的证券例子中，你可能会考虑下面的实现版本：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Original: Returns 20</span>
+<span class="n">min_shares</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">'shares'</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">portfolio</span><span class="p">)</span>
+<span class="c1"># Alternative: Returns {'name': 'AOL', 'shares': 20}</span>
+<span class="n">min_shares</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">portfolio</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="s1">'shares'</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+        </body>
+        </html>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div class="section" id="id1">
+<h1>1.20 合并多个字典或映射<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>现在有多个字典或者映射，你想将它们从逻辑上合并为一个单一的映射后执行某些操作，
+比如查找值或者检查某些键是否存在。</p>
+</div>
+<div class="section" id="id3">
+<h2>解决方案<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>假如你有如下两个字典:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">:</span> <span class="mi">3</span> <span class="p">}</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'y'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>现在假设你必须在两个字典中执行查找操作（比如先从 <code class="docutils literal"><span class="pre">a</span></code> 中找，如果找不到再在 <code class="docutils literal"><span class="pre">b</span></code> 中找）。
+一个非常简单的解决方案就是使用 <code class="docutils literal"><span class="pre">collections</span></code> 模块中的 <code class="docutils literal"><span class="pre">ChainMap</span></code> 类。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">ChainMap</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">'x'</span><span class="p">])</span> <span class="c1"># Outputs 1 (from a)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">'y'</span><span class="p">])</span> <span class="c1"># Outputs 2 (from b)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">'z'</span><span class="p">])</span> <span class="c1"># Outputs 3 (from a)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>讨论<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>一个 <code class="docutils literal"><span class="pre">ChainMap</span></code> 接受多个字典并将它们在逻辑上变为一个字典。
+然后，这些字典并不是真的合并在一起了， <code class="docutils literal"><span class="pre">ChainMap</span></code> 类只是在内部创建了一个容纳这些字典的列表
+并重新定义了一些常见的字典操作来遍历这个列表。大部分字典操作都是可以正常使用的，比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">['x', 'y', 'z']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="go">[1, 2, 3]</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>如果出现重复键，那么第一次出现的映射值会被返回。
+因此，例子程序中的 <code class="docutils literal"><span class="pre">c['z']</span></code> 总是会返回字典 <code class="docutils literal"><span class="pre">a</span></code> 中对应的值，而不是 <code class="docutils literal"><span class="pre">b</span></code> 中对应的值。</p>
+<p>对于字典的更新或删除操作总是影响的是列表中第一个字典。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="p">[</span><span class="s1">'z'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="p">[</span><span class="s1">'w'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">c</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">{'w': 40, 'z': 10}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">c</span><span class="p">[</span><span class="s1">'y'</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">KeyError</span>: <span class="n">"Key not found in the first mapping: 'y'"</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">ChainMap</span></code> 对于编程语言中的作用范围变量（比如 <code class="docutils literal"><span class="pre">globals</span></code> , <code class="docutils literal"><span class="pre">locals</span></code> 等）是非常有用的。
+事实上，有一些方法可以使它变得简单：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add a new mapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">new_child</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add a new mapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">new_child</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span>
+<span class="go">ChainMap({'x': 3}, {'x': 2}, {'x': 1})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Discard last mapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">parents</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Discard last mapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">parents</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span>
+<span class="go">ChainMap({'x': 1})</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>作为 <code class="docutils literal"><span class="pre">ChainMap</span></code> 的替代，你可能会考虑使用 <code class="docutils literal"><span class="pre">update()</span></code> 方法将两个字典合并。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">:</span> <span class="mi">3</span> <span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'y'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span><span class="p">[</span><span class="s1">'y'</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span><span class="p">[</span><span class="s1">'z'</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>这样也能行得通，但是它需要你创建一个完全不同的字典对象（或者是破坏现有字典结构）。
+同时，如果原字典做了更新，这种改变不会反应到新的合并字典中去。比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">ChainMap</span></code> 使用原来的字典，它自己不创建新的字典。所以它并不会产生上面所说的结果，比如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">:</span> <span class="mi">3</span> <span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'y'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merged</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span> <span class="c1"># Notice change to merged dicts</span>
+<span class="go">42</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+        </body>
+        </html>
+        

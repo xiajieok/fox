@@ -39,8 +39,8 @@ class PigSpider(scrapy.spiders.Spider):
                     item['school'] = school[0]
                     print(item)
                     yield item
-
-                    # request.urlretrieve(ab_src,file_path)
+                    #
+                    request.urlretrieve(ab_src,file_path)
                 except Exception as e:
                     print(e)
             # 获取所有的url，继续访问，并在其中寻找相同的url

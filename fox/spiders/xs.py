@@ -35,8 +35,8 @@ class XSSpider(scrapy.spiders.Spider):
 
         #
         print(title)
-        file_name = 'haha.txt'
-        sss = '\n' + msg
+        file_name = title + '.txt'
+        sss = '\n' + msg + '\n'
         f = open(file_name,'a+')
         f.write(sss)
         f.close()
@@ -49,7 +49,7 @@ class XSSpider(scrapy.spiders.Spider):
 
         with open(file_name, 'ab+') as f:
             for i in content:
-                print(type(i))
+                # print(type(i))
                 f.write(i.encode('utf-8'))
 
 

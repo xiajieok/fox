@@ -39,7 +39,7 @@ class PigSpider(scrapy.spiders.Spider):
                     item['school'] = school[0]
                     print(item)
                     yield item
-                    #
+                    #yi
                     request.urlretrieve(ab_src,file_path)
                 except Exception as e:
                     print(e)

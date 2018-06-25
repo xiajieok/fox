@@ -11,7 +11,7 @@ class RandomUserAgent(object):
 
     @classmethod
     def from_crawler(cls,crawler):
-        return cls(crawler.settings.getlist('USER_AGENTS'))#返回的是本类的实例cls ==RandomUserAgent
+        return cls(crawler.settings.getlist('MY_USER_AGENT'))#返回的是本类的实例cls ==RandomUserAgent
 
     def process_request(self,request,spider):
         request.headers.setdefault('User-Agent', random.choice(self.agents))
